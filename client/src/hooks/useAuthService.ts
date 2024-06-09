@@ -72,6 +72,33 @@ const useAuthService = () => {
         });
     };
 
-    return { loading, loginFn, signupFn, logoutFn };
+    const getUserByIdFn = async (id: string): Promise<any> => {
+        return new Promise((resolve, reject) => {
+          setLoading(true);
+          const url = `/auth/${id}`;
+    
+          NetworkService.get(url)
+            .then((res: any) => {
+              if (res?.error) {
+                handleError(res);
+                reject(res);
+              } else {
+                resolve(res);
+              }
+            })
+            .catch((error) => {
+
+              console.log(`🚀 ~ file: useAuthService.ts:94 ~ returnnewPromise ~ error:`, error);
+
+              handleError(error);
+              reject(error);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        });
+      };
+
+    return { loading, loginFn, signupFn, logoutFn, getUserByIdFn };
 };
 export default useAuthService;

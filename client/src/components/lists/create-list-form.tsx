@@ -30,7 +30,7 @@ import {
 } from "@/validations/auth-validation";
 
 interface Props {
-  data?: IColumn | undefined;
+  data?: IList | undefined;
   trigger: React.ReactNode;
 }
 
@@ -55,22 +55,17 @@ const CreateListForm = ({
   const onSubmit = async (values: TCreateListValidator) => {
     console.log("submut", values);
     createList(values.title);
-    // loginFn(data);
   };
   
-  const onDelete = async (values: IColumn) => {
+  const onDelete = async (values: IList) => {
     console.log("onDelete", values);
     deleteList(values?._id as string);
-    // loginFn(data);
   };
   
   const onUpdate = async (values: TCreateListValidator) => {
-    console.log("onUpdate", values);
     if(!data) return;
     const result = { ...data, ...values };
-    console.log("onUpdaterrr", result);
     updateList(data?._id as string, result);
-    // loginFn(data);
   };
 
   return (
@@ -78,9 +73,9 @@ const CreateListForm = ({
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>{actionType} Column</SheetTitle>
+          <SheetTitle>{actionType} List</SheetTitle>
           <SheetDescription>
-            {actionType === "Edit" ? "Edit" : "Add a new"} column to your board.
+            {actionType === "Edit" ? "Edit" : "Add a new"} list to your board.
           </SheetDescription>
         </SheetHeader>
         <FormProvider {...form}>

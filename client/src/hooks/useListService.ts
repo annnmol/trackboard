@@ -25,6 +25,7 @@ const useListService = () => {
               },
               duration: 3000,
             });
+            getLists();
             resolve(res);
           }
         })
@@ -42,7 +43,7 @@ const useListService = () => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/lists/${id}`;
-      NetworkService.put(url, { data })
+      NetworkService.put(url, data)
         .then((res: any) => {
           if (res?.error) {
             handleError(res);
@@ -56,6 +57,7 @@ const useListService = () => {
               },
               duration: 3000,
             });
+            getLists();
             resolve(res);
           }
         })
@@ -87,6 +89,7 @@ const useListService = () => {
               },
               duration: 3000,
             });
+            getLists();
             resolve(res);
           }
         })
@@ -155,7 +158,7 @@ const useListService = () => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/lists/reorder`;
-      NetworkService.put(url, { data })
+      NetworkService.put(url, data)
         .then((res: any) => {
           if (res?.error) {
             handleError(res);

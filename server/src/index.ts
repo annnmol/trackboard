@@ -8,7 +8,7 @@ import http from "node:http";
 import connectToMongoDB from './lib/mongoDB';
 import { errorHandlingLogging, healthCheckLogging, incomingRequestLogging } from './lib/utils';
 import middleware from './middleware/middleware';
-import walletRouter from './routes/wallet.routes';
+import boardRouter from './routes/board.routes';
 import authRouter from "./routes/auth.routes";
 
 config();
@@ -22,7 +22,8 @@ const app = express();
 const httpServer = http.createServer(app);
 
 app.use(cors({
-  origin: "*",
+  origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+  credentials: true,
 }));
 
 app.use(express.json()); // to parse the incoming requests with JSON payloads (from req.body)
@@ -41,7 +42,7 @@ app.use("/api/auth", authRouter);
 app.use(middleware)
 
 //* Protected Routes
-app.use("/api", walletRouter);
+app.use("/api", boardRouter);
 
 /** Route Error handling */
 app.use(errorHandlingLogging);

@@ -48,7 +48,7 @@ const useTaskService = () => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/tasks/${id}`;
-      NetworkService.put(url, { data })
+      NetworkService.put(url, data)
         .then((res: any) => {
           if (res?.error) {
             handleError(res);
@@ -159,7 +159,7 @@ const useTaskService = () => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/tasks/reorder`;
-      NetworkService.put(url, { data })
+      NetworkService.put(url, data)
         .then((res: any) => {
           if (res?.error) {
             handleError(res);

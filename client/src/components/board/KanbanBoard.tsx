@@ -16,7 +16,6 @@ import {
 } from "@dnd-kit/core";
 
 //user defined
-import { defaultCols, initialTasks } from "@/lib/constants";
 import { BoardColumn, BoardContainer } from "./BoardColumn";
 import { TaskCard } from "./TaskCard";
 import { hasDraggableData } from "./utils";
@@ -24,10 +23,12 @@ import { hasDraggableData } from "./utils";
 interface Props {
   listData: IList[];
   taskData: ITask[];
+  setLists: any;
+  // setTasks: any;
 }
 
-export function KanbanBoard({listData, taskData}: Props) {
-  const [columns, setColumns] = useState<IList[]>(listData);
+export function KanbanBoard({ listData:columns, taskData,setLists }: Props) {
+  // const [columns, setColumns] = useState<IList[]>(listData);
   const pickedUpTaskColumn = useRef<IListId | null>(null);
   const columnsId = useMemo(() => columns.map((col) => col._id), [columns]);
 
@@ -190,13 +191,20 @@ export function KanbanBoard({listData, taskData}: Props) {
     const isActiveAColumn = activeData?.type === "Column";
     if (!isActiveAColumn) return;
 
-    setColumns((columns) => {
+    setLists((columns:any) => {
       const activeColumnIndex = columns.findIndex((col) => col._id === activeId);
 
       const overColumnIndex = columns.findIndex((col) => col._id === overId);
 
       return arrayMove(columns, activeColumnIndex, overColumnIndex);
     });
+    // setColumns((columns) => {
+    //   const activeColumnIndex = columns.findIndex((col) => col._id === activeId);
+
+    //   const overColumnIndex = columns.findIndex((col) => col._id === overId);
+
+    //   return arrayMove(columns, activeColumnIndex, overColumnIndex);
+    // });
   }
 
   function onDragOver(event: DragOverEvent) {

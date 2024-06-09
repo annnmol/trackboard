@@ -8,11 +8,11 @@ export type StoreState = {
   authSession: IAuthSession | any | object;
   setAuthSession: (authSession: any) => void;
 
-  lists: IColumn[];
-  setLists: (lists: any[]) => void;
+  lists: IList[];
+  setLists: (lists: any) => void;
 
   tasks: ITask[];
-  setTasks: (tasks: any[]) => void;
+  setTasks: (tasks: any) => void;
 
   loading: boolean;
   setLoading: (loading: boolean) => void;
@@ -29,7 +29,7 @@ export const useAppStore = create(
         LocalStorageService.set("auth-session", payload);
       },
 
-      lists: defaultCols,
+      lists: [],
       setLists: (lists: any) => set({ lists }),
 
       tasks: initialTasks,

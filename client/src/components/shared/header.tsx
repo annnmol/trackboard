@@ -5,21 +5,23 @@ import { Link } from "react-router-dom";
 //user defined
 import { Button } from "@/components/ui/button";
 import useAppStore from "@/store";
+import useAuthService from "@/hooks/useAuthService";
 
 const Header = () => {
   const { setAuthSession, authSession } = useAppStore();
 
-  console.log(`🚀 ~ file: header.tsx:13 ~ Header ~ authSession:`, authSession);
+  // console.log(`🚀 ~ file: header.tsx:13 ~ Header ~ authSession:`, authSession);
 
 
   // const { getMyWallet } = useWalletService();
-
+const {getUserByIdFn} = useAuthService();
   // useEffect(() => {
-  //   if (authSession) {
-  //     getMyWallet(authSession);
-  //   }
+  //   getUserByIdFn(authSession?._id);
+  //   // if (authSession) {
+  //   //   getMyWallet(authSession);
+  //   // }
   //   return () => {};
-  // }, [authSession]);
+  // }, []);
 
   const handleLogout = () => {
     setAuthSession(null);
