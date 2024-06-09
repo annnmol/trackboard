@@ -159,7 +159,6 @@ const useTaskService = () => {
   };
 
   const reorderTask = async (data: IReorderList[]): Promise<any> => {
-    if (loading) return;
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/tasks/reorder`;

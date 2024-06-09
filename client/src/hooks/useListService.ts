@@ -156,7 +156,7 @@ const useListService = () => {
 
 
   const reorderList = async (data: any): Promise<any> => {
-    if (loading) return;
+  
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/lists/reorder`;

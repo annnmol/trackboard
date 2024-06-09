@@ -120,7 +120,6 @@ export function KanbanBoard({ listData:columns, taskData:tasks, reorderList,reor
         active.data.current?.type === "Column" &&
         over.data.current?.type === "Column"
       ) {
-        debugger;
         const overColumnPosition = columnsId.findIndex((id) => id === over.id);
         console.log(
           `Column ${active.data.current.list.title} was dropped into position ${
