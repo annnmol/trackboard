@@ -38,7 +38,7 @@ const useListService = () => {
     });
   };
 
-  const updateList = async (id: string, data: IColumn): Promise<any> => {
+  const updateList = async (id: string, data: IList): Promise<any> => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/lists/${id}`;
