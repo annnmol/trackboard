@@ -43,7 +43,7 @@ export const PRIORITY_TYPE_OPTIONS = [
   },
 ];
 
-export const defaultCols:IColumn[] = [
+export const defaultCols:IList[] = [
   {
     _id: "todo" as const,
     title: "Todo",
@@ -67,7 +67,7 @@ export const defaultCols:IColumn[] = [
 export const initialTasks: ITask[] = [
   {
     _id: "task1",
-    columnId: "done",
+    listId: "done",
     title: "Project initiation and planning",
     description: "Description for task1",
     dueDate: new Date(),
@@ -77,7 +77,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task2",
-    columnId: "done",
+    listId: "done",
     title: "Gather requirements from stakeholders",
     description: "Description for task2",
     dueDate: new Date(),
@@ -87,7 +87,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task3",
-    columnId: "done",
+    listId: "done",
     title: "Create wireframes and mockups",
     description: "Description for task3",
     dueDate: new Date(),
@@ -97,7 +97,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task4",
-    columnId: "in-progress",
+    listId: "in-progress",
     title: "Develop homepage layout",
     description: "Description for task4 as asdha asdjsd asdand asdjas asdjas asjsa asdsdas ddadsvdfd Description for task3Description for task3Description for task3Description for task3Description for task3Description for task3 Description for task3 Description for task3",
     dueDate: new Date(),
@@ -107,7 +107,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task5",
-    columnId: "in-progress",
+    listId: "in-progress",
     title: "Design color scheme and typography",
     description: "Description for task5",
     dueDate: new Date(),
@@ -117,7 +117,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task6",
-    columnId: "todo",
+    listId: "todo",
     title: "Implement user authentication",
     description: "Description for task6",
     dueDate: new Date(),
@@ -127,7 +127,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task7",
-    columnId: "todo",
+    listId: "todo",
     title: "Build contact us page",
     description: "Description for task7",
     dueDate: new Date(),
@@ -137,7 +137,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task8",
-    columnId: "todo",
+    listId: "todo",
     title: "Create product catalog",
     description: "Description for task8",
     dueDate: new Date(),
@@ -147,7 +147,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task9",
-    columnId: "todo",
+    listId: "todo",
     title: "Develop about us page",
     description: "Description for task9",
     dueDate: new Date(),
@@ -157,7 +157,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task10",
-    columnId: "todo",
+    listId: "todo",
     title: "Optimize website for mobile devices",
     description: "Description for task10",
     dueDate: new Date(),
@@ -167,7 +167,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task11",
-    columnId: "todo",
+    listId: "todo",
     title: "Integrate payment gateway",
     description: "Description for task11",
     dueDate: new Date(),
@@ -177,7 +177,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task12",
-    columnId: "todo",
+    listId: "todo",
     title: "Perform testing and bug fixing",
     description: "Description for task12",
     dueDate: new Date(),
@@ -187,7 +187,7 @@ export const initialTasks: ITask[] = [
   },
   {
     _id: "task13",
-    columnId: "todo",
+    listId: "todo",
     title: "Launch website and deploy to server",
     description: "Description for task13",
     dueDate: new Date(),

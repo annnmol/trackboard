@@ -71,9 +71,9 @@ const CreateTaskForm = ({
             description: data?.description,
             priority: data?.priority,
             dueDate: data?.dueDate,
-            columnId: data?.columnId,
+            listId: data?.listId,
           }
-        : {...createTaskIntialValues, columnId:lists?.[0]?._id},
+        : {...createTaskIntialValues, listId:lists?.[0]?._id},
   });
 
   const onSubmit = async (values: TCreateTaskValidator) => {
@@ -83,7 +83,7 @@ const CreateTaskForm = ({
       values.priority,
       values.description,
       values.dueDate,
-      values.columnId
+      values.listId
     );
     // loginFn(data);
   };
@@ -191,14 +191,14 @@ const CreateTaskForm = ({
             />
             <FormField
               control={form.control}
-              name="columnId"
+              name="listId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Priority</FormLabel>
+                  <FormLabel>List</FormLabel>
                   <FormControl>
                     <Select
                       // {...field}
-                      name="columnId"
+                      name="listId"
                       defaultValue={lists?.[0]?._id as any}
                       value={field.value}
                       onValueChange={(e: "low" | "medium" | "high") =>

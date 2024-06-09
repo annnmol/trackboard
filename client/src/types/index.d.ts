@@ -29,7 +29,7 @@ interface IAuthSession {
 
 type UniqueIdentifier = string | number;
 
-interface IColumn {
+interface IList {
   _id: UniqueIdentifier;
   title: string;
   tasks?: UniqueIdentifier[] | ITask[];
@@ -38,7 +38,7 @@ interface IColumn {
 }
 interface ITask {
   _id: UniqueIdentifier;
-  columnId: ColumnId;
+  listId: listId;
   title: string;
   description: string;
   dueDate: Date;
@@ -48,14 +48,14 @@ interface ITask {
 }
 
 
-interface IColumnDragData {
-  type: ColumnType;
-  column: Column;
+interface IListDragData {
+  type: ListType;
+  list: List;
 }
 
-type IColumnType = "Column"
+type IListType = "List"
 
-type IColumnId = typeof defaultCols[number]["id"];
+type IListId = typeof defaultCols[number]["id"];
 
 
 type ITaskType = "Task";
@@ -65,7 +65,7 @@ interface ITaskDragData {
   task: Task;
 }
 
-type IDraggableData = IColumnDragData | ITaskDragData;
+type IDraggableData = IListDragData | ITaskDragData;
 
 interface IReorderList{
   id: string;
@@ -74,5 +74,5 @@ interface IReorderList{
 interface IReorderTask{
   id: string;
   position: number;
-  columnId: string;
+  listId: string;
 }

@@ -51,7 +51,7 @@ const HomeScreen = () => {
         />
          
         </div>
-        <KanbanBoard columnsData={lists} tasksData={tasks} />
+        <KanbanBoard listData={lists} taskData={tasks} />
       </div>
     </>
   );

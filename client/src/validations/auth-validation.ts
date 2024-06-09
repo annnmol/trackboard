@@ -82,7 +82,7 @@ export const CreateTaskValidator = z.object({
     required_error: "Duedate is required.",
   }).default(new Date()),
   priority: z.enum(["low", "medium", "high"]).default("medium"),
-  columnId: z.string(),
+  listId: z.string(),
 });
 
 export const createTaskIntialValues:TCreateTaskValidator = {
@@ -90,7 +90,7 @@ export const createTaskIntialValues:TCreateTaskValidator = {
   description: "description",
   dueDate: new Date(),
   priority: "medium",
-  columnId: "",
+  listId: "",
 };
 
 export type TCreateTaskValidator = z.infer<typeof CreateTaskValidator>;

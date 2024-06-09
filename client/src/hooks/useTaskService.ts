@@ -12,12 +12,12 @@ const useTaskService = () => {
     priority: string,
     description: string,
     dueDate: Date,
-    columnId: string
+    listId: string
   ): Promise<any> => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/tasks`;
-      NetworkService.post(url, { title, priority, description, dueDate, columnId })
+      NetworkService.post(url, { title, priority, description, dueDate, listId })
         .then((res: any) => {
           if (res?.error) {
             handleError(res);
@@ -44,7 +44,7 @@ const useTaskService = () => {
     });
   };
 
-  const updateTask = async (id: string, data: IColumn): Promise<any> => {
+  const updateTask = async (id: string, data: IList): Promise<any> => {
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/tasks/${id}`;

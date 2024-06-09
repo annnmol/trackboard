@@ -16,13 +16,13 @@ import {
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import CreateListForm from "../lists/create-list-form";
 
-interface BoardColumnProps {
-  column: IColumn;
+interface Props {
+  list: IList;
   tasks: ITask[];
   isOverlay?: boolean;
 }
 
-export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
+export function BoardColumn({ list, tasks, isOverlay }: Props) {
   const tasksIds = useMemo(() => {
     return tasks.map((task) => task._id);
   }, [tasks]);
@@ -35,13 +35,13 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
     transition,
     isDragging,
   } = useSortable({
-    id: column._id,
+    id: list._id,
     data: {
       type: "Column",
-      column,
-    } satisfies IColumnDragData,
+      list,
+    } satisfies IListDragData,
     attributes: {
-      roleDescription: `Column: ${column.title}`,
+      roleDescription: `Column: ${list.title}`,
     },
   });
 
@@ -78,13 +78,13 @@ export function BoardColumn({ column, tasks, isOverlay }: BoardColumnProps) {
           {...listeners}
           className=" p-1 text-primary/50 -ml-2 h-auto cursor-grab relative"
         >
-          <span className="sr-only">{`Move column: ${column.title}`}</span>
+          <span className="sr-only">{`Move column: ${list.title}`}</span>
           <GripVertical />
-          <span className="ml-auto text-black"> {column.title} ({tasks?.length})</span>
+          <span className="ml-auto text-black"> {list.title} ({tasks?.length})</span>
         </Button>
 
         <CreateListForm
-          data={column}
+          data={list}
           trigger={
             <Button
               variant="link"
