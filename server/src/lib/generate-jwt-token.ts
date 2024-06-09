@@ -12,7 +12,8 @@ const generateTokenAndSetCookie = (userId: string, res: Response) => {
 		maxAge: 2 * 24 * 60 * 60 * 1000, // MS
 		httpOnly: false, // prevent XSS attacks cross-site scripting attacks
 		// sameSite: "strict", // CSRF attacks cross-site request forgery attacks
-		sameSite: isSecure ? "none" : "lax" ,// CSRF attacks cross-site request forgery attacks
+		// sameSite: isSecure ? "none" : "lax" ,// CSRF attacks cross-site request forgery attacks
+		sameSite: "none" ,// CSRF attacks cross-site request forgery attacks
 		// secure: process.env.NODE_ENV !== "development",
 		secure: isSecure,
 	});
