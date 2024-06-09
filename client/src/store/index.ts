@@ -2,16 +2,17 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 //user defined
 import { LocalStorageService } from "@/services/localstorage";
+import { defaultCols, initialTasks } from "@/lib/constants";
 
 export type StoreState = {
   authSession: IAuthSession | any | object;
   setAuthSession: (authSession: any) => void;
 
-  currentWallet: IWallet | null;
-  setCurrentWallet: (wallet: any) => void;
+  lists: IColumn[];
+  setLists: (lists: any[]) => void;
 
-  transactions: ITransaction[];
-  setTransactions: (transactions: any[]) => void;
+  tasks: ITask[];
+  setTasks: (tasks: any[]) => void;
 
   loading: boolean;
   setLoading: (loading: boolean) => void;
@@ -28,11 +29,11 @@ export const useAppStore = create(
         LocalStorageService.set("auth-session", payload);
       },
 
-      currentWallet: null,
-      setCurrentWallet: (wallet: any) => set({ currentWallet: wallet }),
+      lists: defaultCols,
+      setLists: (lists: any) => set({ lists }),
 
-      transactions: [],
-      setTransactions: (transactions: any) => set({ transactions }),
+      tasks: initialTasks,
+      setTasks: (tasks: any) => set({ tasks }),
 
       loading: false,
       setLoading: (payload: boolean) => set({ loading: payload }),

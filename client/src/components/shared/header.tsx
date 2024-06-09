@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 
 //user defined
 import { Button } from "@/components/ui/button";
-import useWalletService from "@/hooks/useWalletService";
 import useAppStore from "@/store";
 
 const Header = () => {
-  const { setAuthSession, currentWallet, authSession } = useAppStore();
+  const { setAuthSession, authSession } = useAppStore();
 
   console.log(`🚀 ~ file: header.tsx:13 ~ Header ~ authSession:`, authSession);
 
 
-  const { getMyWallet } = useWalletService();
+  // const { getMyWallet } = useWalletService();
 
   // useEffect(() => {
   //   if (authSession) {
@@ -35,15 +34,15 @@ const Header = () => {
       </nav>
 
       <div className="flex w-full items-center justify-end gap-6">
-        <span className="text-primary-foreground">{authSession?.fullName}</span>
+        <span className="text-primary-foreground">Hey {authSession?.fullName}</span>
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full h-[20px] w-[20px] bg-transparent"
+          className="rounded-full h-[24px] w-[24px]"
           onClick={handleLogout}
           title="logout"
         >
-          <LogOut className="h-4 w-4 text-primary-foreground" />
+          <LogOut className="h-4 w-4 text-muted" />
         </Button>
       </div>
     </>

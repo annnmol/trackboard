@@ -1,13 +1,11 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 //user defined
-import CreateWalletScreen from "@/screens/(auth)/create-wallet-screen";
-import TransactionsScreen from "@/screens/(protected)/transactions-screen";
-import HomeScreen from "@/screens/(protected)/home-screen";
-import ProtectedRoutes from "./ProtectedRoutes";
-import AuthRoutes from "./AuthRoutes";
-import ErrorScreen from "@/screens/error-screen";
 import LoginPage from "@/screens/(auth)/login/page";
 import RegisterPage from "@/screens/(auth)/register/page";
+import HomeScreen from "@/screens/(protected)/home-screen";
+import ErrorScreen from "@/screens/error-screen";
+import AuthRoutes from "./AuthRoutes";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const appRouter = createBrowserRouter(
   [
@@ -24,10 +22,6 @@ const appRouter = createBrowserRouter(
           path: "register",
           element: <RegisterPage />,
         },
-        {
-          path: "create-wallet",
-          element: <CreateWalletScreen />,
-        },
       ],
     },
     {
@@ -38,10 +32,6 @@ const appRouter = createBrowserRouter(
           path: "/",
           element: <HomeScreen />,
           errorElement: <Navigate to="/error" />,
-        },
-        {
-          path: "/transactions/:id",
-          element: <TransactionsScreen />,
         },
       ],
     },

@@ -61,3 +61,36 @@ export const changePasswordIntialValues = {
 //============= Email =============
 
 export const emailSchema = z.string().email();
+
+
+//============= Create List =============
+export const CreateListValidator = z.object({
+  title: z.string().min(1).max(40),
+});
+
+export const createListIntialValues:TCreateListValidator = {
+  title: "",
+};
+
+export type TCreateListValidator = z.infer<typeof CreateListValidator>;
+
+//============= Create Task =============
+export const CreateTaskValidator = z.object({
+  title: z.string().min(1).max(40),
+  description: z.string().min(0).max(500).default(""),
+  dueDate: z.date({
+    required_error: "Duedate is required.",
+  }).default(new Date()),
+  priority: z.enum(["low", "medium", "high"]).default("medium"),
+  columnId: z.string(),
+});
+
+export const createTaskIntialValues:TCreateTaskValidator = {
+  title: "New Task",
+  description: "description",
+  dueDate: new Date(),
+  priority: "medium",
+  columnId: "",
+};
+
+export type TCreateTaskValidator = z.infer<typeof CreateTaskValidator>;
