@@ -5,12 +5,12 @@ import { NetworkService } from "@/services/network";
 import { API_ENDPOINTS } from "@/services/endpoints";
 
 const useAuthService = () => {
-    const { setLoading,loading, setAuthSession, } = useAppStore();
+    const { setLoading,loading, setAuthSession } = useAppStore();
 
     const loginFn = async (req: IData) => {
         setLoading(true);
         NetworkService.post(API_ENDPOINTS.LOGIN, req).then((res: any) => {
-            console.log(`🚀 ~ file: useAuthService.ts:24 ~ loginFn ~ data:`, res);
+            // console.log(`🚀 ~ file: useAuthService.ts:24 ~ loginFn ~ data:`, res);
             if (res?.error) return handleError(res);
             // set cookies
             setAuthSession(res?.data);
@@ -32,7 +32,7 @@ const useAuthService = () => {
     const signupFn = async (req: IData) => {
         setLoading(true);
         NetworkService.post(API_ENDPOINTS.SIGNUP, req).then((res: any) => {
-            console.log(`🚀 ~ file: useAuthService.ts:24 ~ signfn ~ data:`, res);
+            // console.log(`🚀 ~ file: useAuthService.ts:24 ~ signfn ~ data:`, res);
             if (res?.error) return handleError(res);
             // set cookies
             setAuthSession(res?.data);
@@ -54,11 +54,11 @@ const useAuthService = () => {
     const logoutFn = async () => {
         setLoading(true);
         NetworkService.post(API_ENDPOINTS.LOGOUT, {}).then((res: any) => {
-            console.log(`🚀 ~ file: useAuthService.ts:24 ~ logoutFn ~ data:`, res);
+            // console.log(`🚀 ~ file: useAuthService.ts:24 ~ logoutFn ~ data:`, res);
             if (res?.error) return handleError(res);
             
             setAuthSession(res?.data);
-
+            // window.location.reload();
             toast.success("Logged out", {
                 description: "",
                 position: "top-center",
@@ -87,9 +87,6 @@ const useAuthService = () => {
               }
             })
             .catch((error) => {
-
-              console.log(`🚀 ~ file: useAuthService.ts:94 ~ returnnewPromise ~ error:`, error);
-
               handleError(error);
               reject(error);
             })

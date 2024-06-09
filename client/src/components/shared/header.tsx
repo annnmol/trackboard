@@ -14,7 +14,7 @@ const Header = () => {
 
 
   // const { getMyWallet } = useWalletService();
-const {getUserByIdFn} = useAuthService();
+const {getUserByIdFn, logoutFn} = useAuthService();
   // useEffect(() => {
   //   getUserByIdFn(authSession?._id);
   //   // if (authSession) {
@@ -24,7 +24,8 @@ const {getUserByIdFn} = useAuthService();
   // }, []);
 
   const handleLogout = () => {
-    setAuthSession(null);
+    // setAuthSession(null);
+    logoutFn();
   };
   return (
     <>

@@ -27,6 +27,11 @@ export const useAppStore = create(
       setAuthSession: async (payload: any) => {
         set({ authSession: payload });
         LocalStorageService.set("auth-session", payload);
+
+        if (!payload) {
+          set({ lists: [] });
+          set({ tasks: [] });
+        }
       },
 
       lists: [],
@@ -38,7 +43,9 @@ export const useAppStore = create(
       loading: false,
       setLoading: (payload: boolean) => set({ loading: payload }),
 
-      removeEverything: () => set({}, true),
+      removeEverything: () => set({
+        
+      }, true),
     }),
     {
       name: "auth-session",

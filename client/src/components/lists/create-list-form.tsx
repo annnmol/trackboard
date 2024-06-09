@@ -53,12 +53,12 @@ const CreateListForm = ({
   });
 
   const onSubmit = async (values: TCreateListValidator) => {
-    console.log("submut", values);
+    // console.log("submut", values);
     createList(values.title);
   };
   
   const onDelete = async (values: IList) => {
-    console.log("onDelete", values);
+    // console.log("onDelete", values);
     deleteList(values?._id as string);
   };
   

@@ -70,12 +70,11 @@ const CreateTaskForm = ({
             title: data?.title,
             description: data?.description,
             priority: data?.priority,
-            dueDate: data?.dueDate,
+            dueDate: new Date(data?.dueDate) ?? new Date(),
             listId: data?.listId,
           }
         : {...createTaskIntialValues, listId:lists?.[0]?._id},
   });
-
   const onSubmit = async (values: TCreateTaskValidator) => {
     console.log("submut", values);
     createTask(
@@ -164,7 +163,8 @@ const CreateTaskForm = ({
                       // {...field}
                       name="priority"
                       value={field.value}
-                      onValueChange={(e: string) =>
+                      
+                      onValueChange={(e: "low" | "medium" | "high") =>
                         field.onChange(e)
                       }
                     >
@@ -199,14 +199,14 @@ const CreateTaskForm = ({
                     <Select
                       // {...field}
                       name="listId"
-                      defaultValue={lists?.[0]?._id as any}
+                      // defaultValue={lists?.[0]?._id as any}
                       value={field.value}
-                      onValueChange={(e: "low" | "medium" | "high") =>
+                      onValueChange={(e: string) =>
                         field.onChange(e)
                       }
                     >
                       <SelectTrigger className="w-full min-w-[120px] justify-between">
-                        <SelectValue placeholder="First list" />
+                        <SelectValue placeholder={"Select"} />
                       </SelectTrigger>
                       <SelectContent>
                         {lists?.map((opt, index) => {
@@ -214,7 +214,7 @@ const CreateTaskForm = ({
                             <SelectItem
                               key={index?.toString()}
                               value={opt?._id as any}
-                              disabled={actionType === "Create" &&  index !== 0 ? true : false}
+                              // disabled={actionType === "Create" &&  index !== 0 ? true : false}
                             >
                               {opt?.title}
                             </SelectItem>
@@ -258,7 +258,7 @@ const CreateTaskForm = ({
                     selected={field.value}
                     onSelect={field.onChange}
                     disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
+                      date < new Date() || date < new Date("1900-01-01")
                     }
                     initialFocus
                   />
@@ -281,12 +281,12 @@ const CreateTaskForm = ({
                   </Button>
                 </SheetClose>
               )}
-              <SheetClose asChild>
+              {/* <SheetClose asChild> */}
                 <Button className="w-[40%]" type="submit" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                   {actionType === "Edit" ? "Update" : "Create"}
                 </Button>
-              </SheetClose>
+              {/* </SheetClose> */}
             </SheetFooter>
           </form>
         </FormProvider>

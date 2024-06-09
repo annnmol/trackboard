@@ -29,7 +29,7 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async (data: TSignInValidator) => {
-    console.log("submut", data);
+    // console.log("submut", data);
     loginFn(data);
   };
 

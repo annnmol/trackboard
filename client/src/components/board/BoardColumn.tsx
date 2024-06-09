@@ -78,9 +78,9 @@ export function BoardColumn({ list, tasks, isOverlay }: Props) {
           {...listeners}
           className=" p-1 text-primary/50 -ml-2 h-auto cursor-grab relative"
         >
-          <span className="sr-only">{`Move column: ${list.title}`}</span>
+          <span className="sr-only">{`Move column: ${list?.title}`}</span>
           <GripVertical />
-          <span className="ml-auto text-black"> {list.title} ({tasks?.length})</span>
+          <span className="ml-auto text-black"> {list?.title} ({tasks?.length})</span>
         </Button>
 
         <CreateListForm

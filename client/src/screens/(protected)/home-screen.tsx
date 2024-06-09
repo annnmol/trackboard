@@ -1,27 +1,23 @@
 import { PlusCircleIcon } from "lucide-react";
 
 //user defined components
-import useAppStore from "@/store";
-import { Button } from "@/components/ui/button";
 import { KanbanBoard } from "@/components/board/KanbanBoard";
 import CreateListForm from "@/components/lists/create-list-form";
 import CreateTaskForm from "@/components/tasks/create-task-form";
+import { Button } from "@/components/ui/button";
 import useListService from "@/hooks/useListService";
+import useTaskService from "@/hooks/useTaskService";
+import useAppStore from "@/store";
 import { useEffect } from "react";
 
 const HomeScreen = () => {
-  const { getLists, } = useListService();
-  const { authSession, lists, tasks,setLists } = useAppStore();
+  const { getLists, reorderList } = useListService();
+  const { authSession, lists, tasks, setTasks, setLists } = useAppStore();
+  const { reorderTask } = useTaskService();
 
   useEffect(() => {
-    if (authSession) {
-      // getTranscations({ id: authSession, limit: 3, skip: 0, date: -1 });
-      getLists();
-    }
-    return () => {
-      // setTransactions([]);
-    };
-  }, [authSession]);
+    getLists();
+  }, []);
 
   return (
     <>
@@ -38,12 +34,15 @@ const HomeScreen = () => {
           />
         </div>
         {lists.length > 0 ? (
-          <KanbanBoard listData={lists} taskData={tasks} setLists={setLists}/>
+          <KanbanBoard listData={lists} taskData={tasks}
+            setLists={setLists}
+            setTasks={setTasks}
+            reorderList={reorderList}
+            reorderTask={reorderTask}
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <h1 className="text-2xl">
-              No lists found
-            </h1>{" "}
+            <h1 className="text-2xl">No lists found</h1>{" "}
           </div>
         )}
       </div>

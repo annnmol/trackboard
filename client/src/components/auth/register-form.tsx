@@ -29,7 +29,7 @@ export default function RegisterForm() {
   });
 
   const onSubmit = async (data: TSignUpValidator) => {
-    console.log("submut", data);
+    // console.log("submut", data);
     signupFn(data);
   };
 

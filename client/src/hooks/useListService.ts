@@ -5,7 +5,7 @@ import { NetworkService } from "@/services/network";
 import useAppStore from "@/store";
 
 const useListService = () => {
-  const { setLoading, loading, setLists } = useAppStore();
+  const { setLoading, loading, setLists,setTasks } = useAppStore();
 
   const createList = async (title: string): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -114,7 +114,8 @@ const useListService = () => {
             handleError(res);
             reject(res);
           } else {
-            setLists(res?.data);
+            setLists(res?.data?.lists);
+            setTasks(res?.data?.tasks);
             resolve(res);
           }
         })
@@ -154,7 +155,8 @@ const useListService = () => {
   };
 
 
-  const reorderList = async (data: IReorderList[]): Promise<any> => {
+  const reorderList = async (data: any): Promise<any> => {
+    if (loading) return;
     return new Promise((resolve, reject) => {
       setLoading(true);
       const url = `/lists/reorder`;
