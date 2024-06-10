@@ -1,35 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CalendarIcon, Loader2, Plus } from "lucide-react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useState } from "react";
 
 //user defined
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import useTaskService from "@/hooks/useTaskService";
-import {
-  CreateTaskValidator,
-  TCreateTaskValidator,
-  createTaskIntialValues,
-} from "@/validations/auth-validation";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -37,11 +20,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
+import useTaskService from "@/hooks/useTaskService";
 import { PRIORITY_TYPE_OPTIONS } from "@/lib/constants";
-import useAppStore from "@/store";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Calendar } from "../ui/calendar";
 import { cn, formatDateTime } from "@/lib/utils";
+import useAppStore from "@/store";
+import {
+  CreateTaskValidator,
+  TCreateTaskValidator,
+  createTaskIntialValues,
+} from "@/validations/auth-validation";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 interface Props {
   data?: ITask | undefined;
@@ -61,6 +60,7 @@ const CreateTaskForm = ({
 
   const { loading, createTask, deleteTask, updateTask } = useTaskService();
   const { lists } = useAppStore();
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const form = useForm<TCreateTaskValidator>({
     resolver: zodResolver(CreateTaskValidator),
@@ -73,8 +73,9 @@ const CreateTaskForm = ({
             dueDate: new Date(data?.dueDate) ?? new Date(),
             listId: data?.listId,
           }
-        : {...createTaskIntialValues, listId:lists?.[0]?._id},
+        : { ...createTaskIntialValues, listId: lists?.[0]?._id },
   });
+
   const onSubmit = async (values: TCreateTaskValidator) => {
     console.log("submut", values);
     createTask(
@@ -83,14 +84,20 @@ const CreateTaskForm = ({
       values.description,
       values.dueDate,
       values.listId
-    );
-    // loginFn(data);
+    ).then(() => {
+      setSheetOpen(false);
+      form.reset();
+      form.clearErrors();
+    });
   };
 
   const onDelete = async (values: ITask) => {
     console.log("onDelete", values);
-    deleteTask(values?._id as string);
-    // loginFn(data);
+    deleteTask(values?._id as string).then(() => {
+      setSheetOpen(false);
+      form.reset();
+      form.clearErrors();
+    });
   };
 
   const onUpdate = async (values: TCreateTaskValidator) => {
@@ -98,12 +105,15 @@ const CreateTaskForm = ({
     if (!data) return;
     const result = { ...data, ...values };
     console.log("onUpdaterrr", result);
-    updateTask(data?._id as string, result);
-    // loginFn(data);
+    updateTask(data?._id as string, result).then(() => {
+      setSheetOpen(false);
+      form.reset();
+      form.clearErrors();
+    });
   };
 
   return (
-    <Sheet>
+    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger asChild>{trigger}</SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -163,7 +173,6 @@ const CreateTaskForm = ({
                       // {...field}
                       name="priority"
                       value={field.value}
-                      
                       onValueChange={(e: "low" | "medium" | "high") =>
                         field.onChange(e)
                       }
@@ -197,13 +206,9 @@ const CreateTaskForm = ({
                   <FormLabel>List</FormLabel>
                   <FormControl>
                     <Select
-                      // {...field}
                       name="listId"
-                      // defaultValue={lists?.[0]?._id as any}
                       value={field.value}
-                      onValueChange={(e: string) =>
-                        field.onChange(e)
-                      }
+                      onValueChange={(e: string) => field.onChange(e)}
                     >
                       <SelectTrigger className="w-full min-w-[120px] justify-between">
                         <SelectValue placeholder={"Select"} />
@@ -214,7 +219,11 @@ const CreateTaskForm = ({
                             <SelectItem
                               key={index?.toString()}
                               value={opt?._id as any}
-                              // disabled={actionType === "Create" &&  index !== 0 ? true : false}
+                              disabled={
+                                actionType === "Create" && index !== 0
+                                  ? true
+                                  : false
+                              }
                             >
                               {opt?.title}
                             </SelectItem>
@@ -227,66 +236,71 @@ const CreateTaskForm = ({
                 </FormItem>
               )}
             />
-                 <FormField
-          control={form.control}
-          name="dueDate"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Due date</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "w-full pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        formatDateTime(field.value).dateOnly
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date < new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-            <SheetFooter className="mt-8 gap-4">
-              <SheetClose asChild>
-                <Button className="" variant={"ghost"}>
-                  cancel
-                </Button>
-              </SheetClose>
-              {actionType === "Edit" && data?._id && (
-                <SheetClose asChild onClick={() => onDelete(data)}>
-                  <Button className="" variant={"destructive"}>
-                    Delete
-                  </Button>
-                </SheetClose>
+            <FormField
+              control={form.control}
+              name="dueDate"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Due date</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-full pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            formatDateTime(field.value).dateOnly
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date < new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
               )}
-              {/* <SheetClose asChild> */}
-                <Button className="w-[40%]" type="submit" disabled={loading}>
-                  {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {actionType === "Edit" ? "Update" : "Create"}
+            />
+            <SheetFooter className="mt-8 gap-4">
+              <Button
+                className=""
+                type="button"
+                onClick={() => setSheetOpen(false)}
+                variant={"ghost"}
+              >
+                cancel
+              </Button>
+              {actionType === "Edit" && data?._id && (
+                <Button
+                  className=""
+                  type="button"
+                  onClick={() => onDelete(data)}
+                  variant={"destructive"}
+                  disabled={loading}
+                >
+                  Delete
                 </Button>
-              {/* </SheetClose> */}
+              )}
+              <Button className="w-[40%]" type="submit" disabled={loading}>
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {actionType === "Edit" ? "Update" : "Create"}
+              </Button>
             </SheetFooter>
           </form>
         </FormProvider>

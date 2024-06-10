@@ -17,6 +17,8 @@ const middleware = async (
 ) => {
   try {
     const token = req.cookies.jwt;
+
+    console.log(`🚀 ~ file: middleware.ts:21 ~ token:`, token);
     
     if (!token) {
       res.cookie("jwt", "", { maxAge: 0 });

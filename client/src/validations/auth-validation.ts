@@ -77,12 +77,12 @@ export type TCreateListValidator = z.infer<typeof CreateListValidator>;
 //============= Create Task =============
 export const CreateTaskValidator = z.object({
   title: z.string().min(1).max(40),
-  description: z.string().min(0).max(500).default(""),
+  description: z.string().min(1).max(500).default(""),
   dueDate: z.date({
     required_error: "Duedate is required.",
   }).default(new Date()),
   priority: z.enum(["low", "medium", "high"]).default("medium"),
-  listId: z.string().default(""),
+  listId: z.string().min(1).default(""),
 });
 
 export const createTaskIntialValues:TCreateTaskValidator = {
