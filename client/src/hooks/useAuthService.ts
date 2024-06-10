@@ -57,7 +57,7 @@ const useAuthService = () => {
             // console.log(`🚀 ~ file: useAuthService.ts:24 ~ logoutFn ~ data:`, res);
             if (res?.error) return handleError(res);
             
-            setAuthSession(res?.data);
+            setAuthSession(null);
             // window.location.reload();
             toast.success("Logged out", {
                 description: "",

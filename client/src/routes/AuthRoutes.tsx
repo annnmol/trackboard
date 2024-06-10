@@ -7,7 +7,7 @@ import useAppStore from "@/store";
 const AuthRoutes = () => {
   const authSession = useAppStore(useShallow((state) => state.authSession));
 
-  return authSession ? <Navigate to="/" replace /> : <AuthLayout />;
+  return authSession?.email ? <Navigate to="/" replace /> : <AuthLayout />;
 };
 
 export default AuthRoutes;
