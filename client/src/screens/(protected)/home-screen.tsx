@@ -26,7 +26,7 @@ const HomeScreen = () => {
           <CreateListForm trigger={<Button variant="link">Add List</Button>} />
           <CreateTaskForm
             trigger={
-              <Button title="Add Task" variant={"secondary"}>
+              <Button title="Add Task" variant={"secondary"} disabled={lists?.length < 1}>
                 <PlusCircleIcon className="h-4 w-4 mr-1" />
                 Task
               </Button>
