@@ -1,16 +1,12 @@
 # trackboard
 A dynamic modern kanban board app made using MERN STACK. The app is fully written in Typescript. 
 
-## LIVE URL: 
+## LIVE URL: https://trackboard-khaki.vercel.app/
 
-##### SERVER URL: 
+##### SERVER URL: https://trackboard.onrender.com/api/health-check
 !!!NOTE: This backend service goes spin down due to inactivity (Free Plans). Needs to manually up again!!! 
 
-### SCREENSHOTS:  
-
-### DEMO VIDEO: 
-
-### CODE EXPLAINATION VIDEO: 
+### DEMO VIDEO: https://drive.google.com/file/d/1DDoSm27asyn0UwU6oMpfjZEqFKVMz_RX/view?usp=sharing
 
 ### LOCAL DEV SETUP
 1. Clone the repo
