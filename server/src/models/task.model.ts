@@ -27,7 +27,7 @@ const taskSchema = new mongoose.Schema<ITask>(
 );
 
 // Add indexes
-taskSchema.index({ createdBy: 1 });
+taskSchema.index({ createdBy: 1,  listId:1});
 
 const Task = mongoose.model<ITask>("Task", taskSchema);
 
