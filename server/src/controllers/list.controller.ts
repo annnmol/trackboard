@@ -7,6 +7,12 @@ import { CreateListSchema } from "../validations/board.validation";
 import List from "../models/list.model";
 import Task from "../models/task.model";
 
+declare module "express" {
+  export interface Request {
+    user?: any;
+  }
+}
+
 const createList = async (req: any, res: Response) => {
   try {
     const { title } = req?.body;
@@ -108,7 +114,7 @@ const deleteList = async (req: Request, res: Response) => {
     await Task.deleteMany({ listId: listObjectId });
 
     // Fetch all lists and sort them by position
-    const lists = await List.find().sort({ position: -1 });
+    const lists = await List.find().sort({ position: 1 });
 
     // Update the position of each list
     for (let i = 0; i < lists.length; i++) {

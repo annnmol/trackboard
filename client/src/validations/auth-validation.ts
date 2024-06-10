@@ -10,7 +10,7 @@ export type TSignInValidator = z.infer<typeof SignInValidator>;
 
 export const signInIntialValues = {
   email: "anmol@a.com",
-  password: "123456",
+  password: "",
 };
 
 //============= Sign UP =============
@@ -25,7 +25,7 @@ export type TSignUpValidator = z.infer<typeof SignUpValidator>;
 export const signUpIntialValues = {
   fullName: "Anmol",
   email: "a@a.com",
-  password: "123456",
+  password: "",
 };
 
 //============= Forget Password =============
