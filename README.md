@@ -10,7 +10,7 @@ A dynamic modern kanban board app made using MERN STACK. The app is fully writte
 
 ### LOCAL DEV SETUP
 1. Clone the repo
-2. change server .env file and Replace password <Password> in MONGO_DB_URI with this: Anmol%40123
+2. change server .env file and Replace password <Password> in MONGO_DB_URI
 3. cd client && yarn install && yarn dev
 4. cd server && yarn install && yarn dev 
 
